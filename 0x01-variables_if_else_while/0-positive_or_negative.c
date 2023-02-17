@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 /**
- * This function calculates a random integer and outputs the result
+ * main - Entry point
+ * Return: Always 0 (Success)
  */
+
 int main(void)
 {
 	int n;
+	
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
 	
@@ -14,16 +18,14 @@ int main(void)
 	{
 		printf("%d is positive\n", n);
 	}
+	else if (n < 0)
+	{
+		printf("%d is negative\n", n);
+	}
 	else
 	{
-		if (n < 0)
-		{
-			printf("%d is negative\n", n);
-		}
-		else
-		{
-			printf("%d is zero\n", n);
-		}
+		printf("%d is zero\n", n);
 	}
+
 	return (0);
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 /**
  * main - print numbers
  * Return: Always 0 (success)
@@ -13,7 +14,7 @@ int main(void)
 		printf("%i", num);
 		num++;
 	}
-	printf('\n');
+	putchar('\n');
 
 	return (0);
 }

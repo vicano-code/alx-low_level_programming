@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - print two two digit pairs in range 00-99 (00 01, 00,02,...) 
+ * main - print two two digit pairs in range 00-99 i.e 00 01, 00,02,...
  * Return: Always 0 (success)
  */
 
@@ -14,7 +14,7 @@ int main(void)
 
 	for (tens = '0'; tens <= '9'; tens++)
 	{
-		for (unit = 0; unit <= '9'; unit++)
+		for (unit = '0'; unit <= '9'; unit++)
 		{
 			for (tens1 = tens; tens1 <= '9'; tens1++)
 			{

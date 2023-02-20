@@ -32,7 +32,7 @@ int main(void)
 						putchar(' ');
 					}
 				}
-				unit = '0';
+				unit11111111111 = '0';
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - print all possible two digits, no duplicates(01,10) and combos (11,22)
+ * main - print all possible two digits, no duplicates(01,10) and combos(11,22)
  * Return: Always 0 (success)
  */
 

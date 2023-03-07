@@ -15,6 +15,9 @@ char *_strstr(char *haystack, char *needle)
 	int i, j, k;
 	int start;
 
+	if (needle[0] == '\0')
+		return (haystack);
+
 	/* count num of bytes in substring */
 	i = 0;
 	while (needle[i] != '\0')

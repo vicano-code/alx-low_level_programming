@@ -1,5 +1,5 @@
 #include "main.h"
-#include <stddef.h>
+#define NULL 0
 
 /**
  * _strstr - finds the first occurrence of the

@@ -10,12 +10,12 @@
 
 int get_root(int n, int x)
 {
-	if (x < 1)
+	if (x * x > n)
 		return (-1);
 	if (x * x == n)
 		return (x);
 
-	return (get_root(n, x - 1));
+	return (get_root(n, x + 1));
 }
 
 /**
@@ -26,12 +26,8 @@ int get_root(int n, int x)
 
 int _sqrt_recursion(int n)
 {
-	int x = n / 2;
-
-	if (n < 1)
+	if (n < 0)
 		return (-1);
-	if (n == 1)
-		return (1);
 
-	return (get_root(n, x));
+	return (get_root(n, 0));
 }

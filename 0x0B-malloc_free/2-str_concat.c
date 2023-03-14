@@ -2,6 +2,23 @@
 #include "main.h"
 
 /**
+ * _strlen - compute string length
+ * @str: the string
+ * Return: string length value
+ */
+
+int _strlen(char *str)
+{
+	int strlen = 0;
+
+	while (*(str + strlen) != '\0')
+	{
+		strlen++;
+	}
+	return (strlen);
+}
+
+/**
  * str_concat - concatenates two strings
  * @s1: first string
  * @s2: second string
@@ -16,25 +33,18 @@ char *str_concat(char *s1, char *s2)
 	int strlen1, strlen2;
 	int i, j;
 
-	/* find length of s1 */
-	strlen1 = 0;
-	while (*(s1 + strlen1) != '\0')
-	{
-		strlen1++;
-	}
-	/* find length of s2 */
-	strlen2 = 0;
-	while (*(s2 + strlen2) != '\0')
-	{
-		strlen2++;
-	}
+	if (s1 == NULL)
+		newstr = s2;
+	if (s2 == NULL)
+		newstr = s1;
+	/* find length of s1 and s2*/
+	strlen1 = _strlen(s1);
+	strlen2 = _strlen(s2);
 
 	/* allocate memory */
 	newstr = malloc((strlen1 + strlen2) * sizeof(char));
-
 	if (newstr == NULL) /* check for insufficient memory */
 		return (NULL);
-
 	/* concatenate s1 and s2 */
 	i = 0;
 	while (i < strlen1)
@@ -46,8 +56,7 @@ char *str_concat(char *s1, char *s2)
 	while (i <= (strlen1 + strlen2))
 	{
 		*(newstr + i) = *(s2 + j);
-		i++;
-		j++;
+		i++, j++;
 	}
 
 	return (newstr);

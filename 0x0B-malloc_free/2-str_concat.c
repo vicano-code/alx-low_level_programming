@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <limits.h>
 #include "main.h"
 
 /**
@@ -36,7 +35,7 @@ char *str_concat(char *s1, char *s2)
 		s1 = "";
 	if (s2 == NULL)
 		s2 = "";
-	
+
 	/* find length of s1 and s2*/
 	strlen1 = _strlen(s1);
 	strlen2 = _strlen(s2);
@@ -45,15 +44,14 @@ char *str_concat(char *s1, char *s2)
 	newstr = malloc((strlen1 + strlen2) * sizeof(char));
 	if (newstr == NULL) /* validate memory */
 		return (NULL);
-	
+
 	/* concatenate s1 and s2 */
-	i = 0;
+	i = 0, j = 0;
 	while (i < strlen1)
 	{
 		*(newstr + i) = *(s1 + i);
 		i++;
 	}
-	j = 0;
 	while (i <= (strlen1 + strlen2)) /* include null terminator */
 	{
 		*(newstr + i) = *(s2 + j);

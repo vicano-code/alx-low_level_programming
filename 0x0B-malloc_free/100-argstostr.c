@@ -46,7 +46,7 @@ char *argstostr(int ac, char **av)
 		free(newstr);
 		return (NULL);
 	}
-	
+
 	n = 0;
 	for (j = 0; j < ac; j++)
 	{

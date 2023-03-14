@@ -12,9 +12,7 @@ int _strlen(char *str)
 	int strlen = 0;
 
 	while (*(str + strlen) != '\0')
-	{
 		strlen++;
-	}
 	return (strlen);
 }
 
@@ -34,16 +32,16 @@ char *str_concat(char *s1, char *s2)
 	int i, j;
 
 	if (s1 == NULL)
-		newstr = s2;
+		s1 = "";
 	if (s2 == NULL)
-		newstr = s1;
+		s2 = "";
 	/* find length of s1 and s2*/
 	strlen1 = _strlen(s1);
 	strlen2 = _strlen(s2);
 
 	/* allocate memory */
 	newstr = malloc((strlen1 + strlen2) * sizeof(char));
-	if (newstr == NULL) /* check for insufficient memory */
+	if (newstr == NULL) /* validate memory */
 		return (NULL);
 	/* concatenate s1 and s2 */
 	i = 0;

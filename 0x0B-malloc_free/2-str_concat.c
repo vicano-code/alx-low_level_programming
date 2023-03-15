@@ -38,7 +38,7 @@ char *str_concat(char *s1, char *s2)
 
 	/* find length of s1 and s2*/
 	strlen1 = _strlen(s1);
-	strlen2 = _strlen(s2);
+	strlen2 = _strlen(s2) + 1; /* add 1 for null termination */
 
 	/* allocate memory */
 	newstr = malloc((strlen1 + strlen2) * sizeof(char));

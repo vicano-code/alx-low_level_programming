@@ -10,11 +10,23 @@
 
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	void *arr;
+	unsigned int i;
+	void **arr;
 
+	/* input validation */
+	if (nmemb == 0 || size == 0)
+		return (NULL);
+
+	/* allocate memory and check for error */
 	arr = malloc(nmemb * size);
 	if (arr == NULL)
 		return (NULL);
+
+	/* set memmory allocated values to 0 */
+	for (i = 0; i < nmemb * size; i++)
+	{
+		*((char *)arr + i) = 0;
+	}
 
 	return (arr);
 }

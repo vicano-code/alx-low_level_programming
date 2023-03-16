@@ -13,13 +13,16 @@ int *array_range(int min, int max)
 	int *ptr, i;
 	int n = max - min + 1;
 
+	/* input validation */
 	if (min > max)
 		return (NULL);
 
-	ptr = malloc(sizeof(ptr) * n) ;
+	/* memory allocation and validation */
+	ptr = malloc(sizeof(ptr) * n);
 	if (ptr == NULL)
 		return (NULL);
 
+	/* set array values to memory */
 	for (i = 0; i < n; i++)
 	{
 		*(ptr + i) = min;

@@ -1,19 +1,43 @@
 #include <stdlib.h>
 #include "main.h"
+#include <ctype.h>
+
 /**
- * _mul - multiplies two positive numbers
+ * _numlen - calculates number of digits in a number
+ * @num: the number
+ * Return: the numbr of digits
+ */
+
+int _numlen(char *num)
+{
+	int i = 0;
+	
+	while (num)
+		i++;
+
+	return (i);
+}
+
+/**
+ * main - multiplies two positive numbers
  * @argc: number of arguments including the func name
  * @argv: the arguments
  * Return: nothing
  */
 
-void _mul(int argc, char *argv)
+int main(int argc, char **argv)
 {
-	char result;
+	int i, j, k, val;
+	char *result;
 
 	if (argc != 3)
 	{
-		_putchar("Error\n");
+		_putchar('E');
+		_putchar('r');
+		_putchar('r');
+		_putchar('o');
+		_putchar('r');
+		_putchar('\n');
 		exit(98);
 	}
 
@@ -23,13 +47,23 @@ void _mul(int argc, char *argv)
 		{
 			if (!(isdigit(argv[i][j])))
 			{
-				_putchar("Error\n");
+				_putchar('E');
+				_putchar('r');
+				_putchar('r');
+				_putchar('o');
+				_putchar('r');
+				_putchar('\n');
 				exit(98);
 			}
 		}
 	}
 
-	result = atoi(arg[1]) * atoi(arg[2]);
-	_putchar(result);
+	val = (atoi(argv[1]) * atoi(argv[2]));
+	result = (char *)val;
+	for (k = 0; k < _numlen(result); k++)
+	{
+		_putchar(result[k]);
+	}
 	_putchar('\n');
+	return (0);
 }

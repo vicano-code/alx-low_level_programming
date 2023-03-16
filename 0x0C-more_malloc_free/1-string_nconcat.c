@@ -27,23 +27,19 @@ int _strlen(char *string)
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
 	char *newstr;
-	int len, len1, len2, num, i = 0, j = 0;
-	
-	num = n;
+	unsigned int len, len1, len2, i = 0, j = 0;
+
 	if (s1 == NULL)
 		s1 = "";
 	if (s2 == NULL)
 		s2 = "";
-	
-	if (num < 0) /* account for negative n bytes */
-		return (NULL);
 
 	len1 = _strlen(s1); /* get string length of s1 & s2 */
 	len2 = _strlen(s2);
 
-	if (num >= len2) /* manage memory if n is >= length of s2 */
-		num = len2;
-	len = len1 + num;
+	if (n >= len2) /* manage memory if n is >= length of s2 */
+		n = len2;
+	len = len1 + n;
 	newstr = malloc(sizeof(*newstr) * len); /* allocate memory */
 	if (newstr == NULL) /* validate memory */
 		return (NULL);

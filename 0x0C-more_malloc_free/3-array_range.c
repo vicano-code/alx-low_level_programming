@@ -18,7 +18,7 @@ int *array_range(int min, int max)
 		return (NULL);
 
 	/* memory allocation and validation */
-	ptr = malloc(sizeof(ptr) * n);
+	ptr = malloc(sizeof(int) * n);
 	if (ptr == NULL)
 		return (NULL);
 

@@ -33,7 +33,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	/* new memory allocation and validation*/
 	newptr = malloc(new_size);
 	if (newptr == NULL)
-		return (ptr);
+		return (NULL);
 
 	/* ensure extra memory is not initialized if new_size > old_size */
 	if (new_size < old_size)

@@ -12,14 +12,14 @@ int _strlen(char *s)
 {
 	int len = 0;
 
-	if (*(s + len) != '\0')
+	while (*(s + len) != '\0')
 		len++;
 
 	return (len);
 }
 
 /**
- * strcpy - copies the string pointed to by src,
+ * _strcpy - copies the string pointed to by src,
  * including the terminating null byte (\0),
  * to the buffer pointed to by dest
  * @dest: copy source to this buffer

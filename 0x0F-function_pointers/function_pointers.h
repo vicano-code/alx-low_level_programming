@@ -1,6 +1,6 @@
-#include <stddef.h>
 #ifndef _FUNC_H_
 #define _FUNC_H_
+#include <stddef.h>
 
 int _putchar(char c);
 

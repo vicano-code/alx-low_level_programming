@@ -14,7 +14,10 @@ int main(int argc, char **argv)
 	int num1 = atoi(argv[1]);
 	int num2 = atoi(argv[3]);
 	char *operator = argv[2];
+	int (*ptr)(int, int);
 	int p;
+
+	ptr = get_op_func(operator);
 
 	/* input validation */
 	if (argc != 4)
@@ -23,7 +26,7 @@ int main(int argc, char **argv)
 		exit(98);
 	}
 
-	if (get_op_func(operator) == NULL)
+	if (ptr == NULL)
 	{
 		printf("Error\n");
 		exit(99);
@@ -35,7 +38,7 @@ int main(int argc, char **argv)
 		exit(100);
 	}
 
-	p = get_op_func(operator)(num1, num2);
+	p = (*ptr)(num1, num2);
 
 	printf("%d\n", p);
 	return (0);

@@ -65,6 +65,7 @@ size_t print_listint_safe(const listint_t *head)
 {
 	size_t num_nodes = 0;
 	int i = 0, checkloop, node_count;
+	const listint_t *current;
 
 	if (head == NULL)
 		exit(98);
@@ -75,19 +76,20 @@ size_t print_listint_safe(const listint_t *head)
 		node_count = node_count_before_loop(head);
 		while (i < node_count)
 		{
-			printf("[%p] %i\n", (void *)head, head->n);
+			printf("[%p] %d\n", (void *)current, current->n);
 			num_nodes++;
-			head = head->next;
+			current = current->next;
 			i++;
 		}
 	}
 	else
 	{
-		while (head)
+		current = head;
+		while (current)
 		{
-			printf("[%p] %i\n", (void *)head, head->n);
+			printf("[%p] %d\n", (void *)current, current->n);
 			num_nodes++;
-			head = head->next;
+			current = current->next;
 		}
 	}
 	return (num_nodes);

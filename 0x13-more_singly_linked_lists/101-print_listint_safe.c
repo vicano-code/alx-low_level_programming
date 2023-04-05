@@ -3,94 +3,55 @@
 #include <stdlib.h>
 
 /**
- * check_loop - checks if loop exist in linked list
- * @head: pointer to list head node
- * Return: 0 if no loop, 1 if loop exist
- */
-
-int check_loop(const listint_t *head)
-{
-	const listint_t *fast, *slow;
-
-	fast = slow = head;
-	while (fast != NULL && slow != NULL)
-	{
-		slow = slow->next;
-		fast = fast->next->next;
-		if (fast == slow)
-			return (1);
-	}
-	return (0);
-}
-
-/**
- * node_count_before_loop - count num of nodes before loop
- * @head: pointr to had node of list
- * Return: node count
- */
-
-int node_count_before_loop(const listint_t *head)
-{
-	const listint_t *fast, *slow;
-	int count = 0;
-
-	fast = slow = head;
-	while (fast != NULL &&  slow != NULL)
-	{
-		slow = slow->next;
-		fast = fast->next->next;
-		count++;
-		if (fast == slow)
-		{
-			fast = head;
-			while (fast != slow)
-			{
-				fast = fast->next;
-				slow = slow->next;
-				count++;
-			}
-			return (count);
-		}
-	}
-	return (0);
-}
-
-/**
- * print_listint_safe - prints a listint_t linked list(safe version)
- * @head: pointer to the list
+ * print_listint_safe - prints a listint_t linked list
+ * @head: pointer to the head node of list
  * Return: the number of nodes in the list
  */
 
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t num_nodes = 0;
-	int i = 0, checkloop, node_count;
-	const listint_t *current;
+	const listint_t *fast = head, *slow = head;
+	size_t count = 0;
+	int is_loop = 0;
 
-	if (head == NULL)
-		exit(98);
-
-	checkloop = check_loop(head);
-	if (checkloop == 1)
+	while (fast && slow && fast->next)
 	{
-		node_count = node_count_before_loop(head);
-		while (i < node_count)
+		if (!(fast->next->next))
+			break;
+		slow = slow->next;
+		fast = fast->next->next;
+		if (fast == slow)
 		{
-			printf("[%p] %d\n", (void *)current, current->n);
-			num_nodes++;
-			current = current->next;
-			i++;
+			slow = slow->next;
+			is_loop = 1;
+			break;
 		}
 	}
-	else
+
+	if (!is_loop)
 	{
-		current = head;
-		while (current)
+		while (head)
 		{
-			printf("[%p] %d\n", (void *)current, current->n);
-			num_nodes++;
-			current = current->next;
+			count++;
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
 		}
+		return (count);
 	}
-	return (num_nodes);
+
+	while (head)
+	{
+		count++;
+		if (head == slow)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+			printf("-> [%p] %d\n", (void *)head->next, head->next->n);
+			exit(98);
+		}
+
+		printf("[%p] %d\n", (void *)head, head->n);
+		head = head->next;
+	}
+
+	return (0);
 }

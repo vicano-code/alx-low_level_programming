@@ -38,12 +38,12 @@ void copy_file(const char *file_from, const char *file_to)
 		bytes_written = write(fd_write, buffer, bytes_read);
 		if (bytes_written != bytes_read)
 		{
-			close(fd_read) == -1 ? dprintf(fd_stderr, "Error: Can't close fd_read %d\n", fd_read) : close(fd_read);
-			close(fd_write) == -1 ? dprintf(fd_stderr, "Error: Can't close fd_write %d\n", fd_write) : close(fd_write);
+			close(fd_read) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read) : close(fd_read);
+			close(fd_write) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_write) : close(fd_write);
 		}
 	}
-	close(fd_read) == -1 ? dprintf(fd_stderr, "Error: Can't close fd_read %d\n", fd_read) : close(fd_read);
-	close(fd_write) == -1 ? dprintf(fd_stderr, "Error: Can't close fd_write %d\n", fd_write) : close(fd_write);
+	close(fd_read) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read) : close(fd_read);
+	close(fd_write) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_write) : close(fd_write);
 }
 
 /**

@@ -35,11 +35,16 @@ void copy_file(const char *file_from, const char *file_to)
 
 	while ((bytes_read = read(fd_read, buffer, BUFFER_SIZE)) > 0)
 	{
-		bytes_written = write(fd_write, buffer, bytes_read);
-		if (bytes_written != bytes_read)
+		if (bytes_read == -1)
 		{
-			close(fd_read) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read) : close(fd_read);
-			close(fd_write) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_write) : close(fd_write);
+			dprintf(fd_stderr, "Error: Can't read from file %s\n ", file_from);
+			exit(98);
+		}
+		bytes_written = write(fd_write, buffer, bytes_read);
+		if (bytes_written == -1)
+		{
+			dprintf(fd_stderr, "Error: Can't write to %s\n ", file_to);
+			exit(99);
 		}
 	}
 	close(fd_read) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read) : close(fd_read);

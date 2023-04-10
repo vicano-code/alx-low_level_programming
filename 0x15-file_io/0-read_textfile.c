@@ -1,6 +1,8 @@
 #include "main.h"
 #include <stdio.h>
-#include <stddef.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "_putchar.c"
 
 /**
@@ -12,24 +14,29 @@
 
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	char ch;
-	FILE *fp;
-	size_t count = 0;
+	int fp;
+	int i;
+	ssize_t bytes_read;
+	char *ch;
 
+	ch = malloc(sizeof(ch) * letters);
 	if (filename == NULL) /*validate filename*/
 		return (0);
 
-	fp = fopen(filename, "r");
-	if (fp == NULL) /*validate opening file*/
+	fp = open(filename, O_RDONLY);
+	if (fp == -1) /*validate opening file*/
 		return (0);
 
-	while ((count != letters) && (ch = fgetc(fp)) != EOF)
+	bytes_read = read(fp, ch, letters);
+	if(bytes_read == -1)
+		return (0);
+
+	for (i = 0; i < bytes_read; i++)
 	{
-		_putchar(ch);
-		count++;
+		_putchar(ch[i]);
 	}
 
-	fclose(fp);
+	close(fp);
 
-	return ((ssize_t)count);
+	return (bytes_read);
 }

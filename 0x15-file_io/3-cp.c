@@ -49,8 +49,21 @@ void copy_file(const char *file_from, const char *file_to)
 			exit(99);
 		}
 	}
-	close(fd_read) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read) : close(fd_read);
-	close(fd_write) == -1 ? dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_write) : close(fd_write);
+	if (close(fd_read) == -1)
+	{
+		dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read);
+		exit(100);
+	}
+	else
+		close(fd_read);
+
+	if (close(fd_write) == -1)
+	{
+		dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_write);
+		exit(100);
+	}
+	else
+		close(fd_write);
 }
 
 /**

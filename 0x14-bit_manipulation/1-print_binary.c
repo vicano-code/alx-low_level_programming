@@ -17,6 +17,8 @@ void print_binary(unsigned long int n)
 		ncopy >>= 1;
 	}
 	len--;
+	if (n == 0)
+		_putchar('0');
 
 	for (i = len; i >= 0; i--)
 	{

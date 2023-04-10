@@ -8,11 +8,19 @@
 
 void print_binary(unsigned long int n)
 {
-	int i;
+	int i, len = 0;
+	unsigned long int ncopy = n;
 
-	for (i = 31; i >= 0; i--)
+	while (ncopy > 0)
 	{
-		_putchar(n & (1 << i) ? '1' : '0');
+		len++;
+		ncopy >>= 1;
+	}
+	len--;
+
+	for (i = len; i >= 0; i--)
+	{
+		_putchar(((n >> i) & 1) ? '1' : '0');
 	}
 	_putchar('\n');
 }

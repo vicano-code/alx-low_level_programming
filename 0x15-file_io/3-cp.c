@@ -29,7 +29,7 @@ void copy_file(const char *file_from, const char *file_to)
 		dprintf(fd_stderr, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
-	fd_write = open(file_to, | O_CREAT | O_TRUNC | O_WRONLY, 0644)
+	fd_write = open(file_to, O_CREAT | O_TRUNC | O_WRONLY, 0664)
 	if (fd_write == -1)
 	{
 		dprintf(fd_stderr, "Error: Can't write to %s\n", file_to);

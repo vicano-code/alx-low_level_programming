@@ -15,21 +15,21 @@ void copy_file(const char *file_from, const char *file_to)
 
 	if (!file_from)
 	{
-		dprintf(fd_stderr, "Error: Can't read from file %s\n ", file_from);
+		dprintf(fd_stderr, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
 
 	fd_read = open(file_from, O_RDONLY);
 	if (fd_read == -1)
 	{
-		dprintf(fd_stderr, "Error: Can't read from file %s\n ", file_from);
+		dprintf(fd_stderr, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
 
 	fd_write = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_write == -1)
 	{
-		dprintf(fd_stderr, "Error: Can't write to %s\n ", file_to);
+		dprintf(fd_stderr, "Error: Can't write to %s\n", file_to);
 		exit(99);
 	}
 
@@ -37,13 +37,13 @@ void copy_file(const char *file_from, const char *file_to)
 	{
 		if (bytes_read == -1)
 		{
-			dprintf(fd_stderr, "Error: Can't read from file %s\n ", file_from);
+			dprintf(fd_stderr, "Error: Can't read from file %s\n", file_from);
 			exit(98);
 		}
 		bytes_written = write(fd_write, buffer, bytes_read);
 		if (bytes_written == -1)
 		{
-			dprintf(fd_stderr, "Error: Can't write to %s\n ", file_to);
+			dprintf(fd_stderr, "Error: Can't write to %s\n", file_to);
 			exit(99);
 		}
 	}

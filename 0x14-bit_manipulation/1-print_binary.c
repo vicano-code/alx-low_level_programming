@@ -25,7 +25,7 @@ void print_binary(unsigned long int n)
 	/* loop through each bit of the number */
 	for (i = count - 1; i >= 0; i--)
 	{
-		_putchar((n & (1UL << i)) ? '1' : '0');
+		_putchar((n >> i) & 1  ? '1' : '0');
 	}
 	_putchar('\n');
 }

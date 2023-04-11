@@ -8,21 +8,24 @@
 
 void print_binary(unsigned long int n)
 {
-	int i, len = 0;
-	unsigned long int ncopy = n;
+	int i, count = 0;
+	unsigned long ncopy;
 
-	while (ncopy > 0)
-	{
-		len++;
-		ncopy >>= 1;
-	}
-	len--;
-	if (ncopy == 0)
+	if (n == 0)
 		_putchar('0');
 
-	for (i = len; i >= 0; i--)
+	ncopy = n;
+	/* count of num of bits required to represent n */
+	while (ncopy > 0)
 	{
-		_putchar(((ncopy >> i) & 1) ? '1' : '0');
+		ncopy >>= 1;
+		count++;
+	}
+
+	/* loop through each bit of the number */
+	for (i = count - 1; i >= 0; i--)
+	{
+		_putchar((n & (1UL << i)) ? '1' : '0');
 	}
 	_putchar('\n');
 }

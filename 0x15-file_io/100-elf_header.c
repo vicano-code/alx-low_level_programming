@@ -62,9 +62,9 @@ void print_elf_header(void)
 	printf("  OS/ABI:     %s\n", (ehdr.e_ident[EI_OSABI] == ELFOSABI_SYSV) ?
 			"UNIX - System V" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_HPUX) ? "HP-UX" :
-			(ehdr.e_ident[EI_OSABI] == ELFOSABI_NETBSD) ? "NetBSD" :
+			(ehdr.e_ident[EI_OSABI] == ELFOSABI_NETBSD) ? "UNIX - NetBSD" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_LINUX) ? "Linux" :
-			(ehdr.e_ident[EI_OSABI] == ELFOSABI_SOLARIS) ? "Solaris" :
+			(ehdr.e_ident[EI_OSABI] == ELFOSABI_SOLARIS) ? "UNIX - Solaris" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_AIX) ? "AIX" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_IRIX) ? "IRIX" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_FREEBSD) ? "FreeBSD" :
@@ -77,7 +77,7 @@ void print_elf_header(void)
 			ehdr.e_type == ET_REL ? "REL (Relocatable file)" :
 			ehdr.e_type == ET_EXEC ? "EXEC (Executable file)" :
 			ehdr.e_type == ET_CORE ? "CORE (Core file)" : "Unknown");
-	printf("  Entry point address:    %p\n", (void *)(ehdr.e_entry & 0xFFFF));
+	printf("  Entry point address:    %p\n", (void *)(ehdr.e_entry & 0xFFFFFFFF));
 }
 
 /**

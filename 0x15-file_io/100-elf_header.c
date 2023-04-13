@@ -26,7 +26,9 @@ bool is_elf(const char *filename)
 		exit(98);
 	}
 
-	return (ehdr.e_ident[EI_MAG0] == ELFMAG0 && ehdr.e_ident[EI_MAG1] == ELFMAG1 && ehdr.e_ident[EI_MAG2] == ELFMAG2 && ehdr.e_ident[EI_MAG3] == ELFMAG3);
+	return (ehdr.e_ident[EI_MAG0] == ELFMAG0 && ehdr.e_ident[EI_MAG1]
+			== ELFMAG1 && ehdr.e_ident[EI_MAG2]
+			== ELFMAG2 && ehdr.e_ident[EI_MAG3] == ELFMAG3);
 }
 
 /**
@@ -49,12 +51,16 @@ void print_elf_header(void)
 			printf("%02x ", ehdr.e_ident[i]);
 	printf("\n");
 
-	printf("  Class:      %s\n", (ehdr.e_ident[EI_CLASS] == ELFCLASS64) ? "ELF64" :
+	printf("  Class:     %s\n", (ehdr.e_ident[EI_CLASS] == ELFCLASS64) ? "ELF64" :
 			(ehdr.e_ident[EI_CLASS] == ELFCLASS32) ? "ELF32" : "unknown");
-	printf("  Data:       %s\n", (ehdr.e_ident[EI_DATA] == ELFDATA2LSB) ? "2's complement, little-endian" :
-			(ehdr.e_ident[EI_DATA] == ELFDATA2MSB) ? "2's complement, big-endian" : "unknown");
-	printf("  Version:    %d\n", ehdr.e_ident[EI_VERSION]);
-	printf("  OS/ABI:     %s\n", (ehdr.e_ident[EI_OSABI] == ELFOSABI_SYSV) ? "UNIX - System V" :
+	printf("  Data:       %s\n", (ehdr.e_ident[EI_DATA] == ELFDATA2LSB) ?
+			"2's complement, little endian" :
+			(ehdr.e_ident[EI_DATA] == ELFDATA2MSB) ?
+			"2's complement, big endian" : "unknown");
+	printf("  Version:    %s\n", ehdr.e_ident[EI_VERSION] == EV_CURRENT ?
+			"1 (current)" : "0 (invalid)");
+	printf("  OS/ABI:     %s\n", (ehdr.e_ident[EI_OSABI] == ELFOSABI_SYSV) ?
+			"UNIX - System V" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_HPUX) ? "HP-UX" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_NETBSD) ? "NetBSD" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_LINUX) ? "Linux" :
@@ -66,11 +72,12 @@ void print_elf_header(void)
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_MODESTO) ? "Novell Modesto" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_OPENBSD) ? "OpenBSD" : "unknown");
 	printf("  ABI Version:%d\n", ehdr.e_ident[EI_ABIVERSION]);
-	printf("  Type:       %s\n", ehdr.e_type == ET_DYN ? "DYN (Shared Object file)" :
+	printf("  Type:       %s\n", ehdr.e_type == ET_DYN ?
+			"DYN (Shared object file)" :
 			ehdr.e_type == ET_REL ? "REL (Relocatable file)" :
 			ehdr.e_type == ET_EXEC ? "EXEC (Executable file)" :
 			ehdr.e_type == ET_CORE ? "CORE (Core file)" : "Unknown");
-	printf("  Entry point address:    %lx\n", (ehdr.e_entry));
+	printf("  Entry point address:    %p\n", (void *)(ehdr.e_entry & 0xFFFF));
 }
 
 /**

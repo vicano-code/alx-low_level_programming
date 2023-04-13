@@ -43,7 +43,10 @@ void print_elf_header(void)
 	printf("ELF Header:\n");
 	printf("  Magic: ");
 	for (i = 0; i < EI_NIDENT; i++)
-		printf("%02x ", ehdr.e_ident[i]);
+		if (i == EI_NIDENT - 1)
+			printf("%02x", ehdr.e_ident[i]);
+		else
+			printf("%02x ", ehdr.e_ident[i]);
 	printf("\n");
 
 	printf("  Class:      %s\n", (ehdr.e_ident[EI_CLASS] == ELFCLASS64) ? "ELF64" :

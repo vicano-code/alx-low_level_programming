@@ -64,8 +64,8 @@ void print_elf_header(void)
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_OPENBSD) ? "OpenBSD" : "unknown");
 	printf("  ABI Version:%d\n", ehdr.e_ident[EI_ABIVERSION]);
 	printf("  Type:       %s\n", ehdr.e_type == ET_DYN ? "DYN (Shared Object file)" :
-			ehdr.e_type == ET_REL ? "REL (Relocatable file)" : 
-			ehdr.e_type == ET_EXEC ? "EXEC (Executable file)" : 
+			ehdr.e_type == ET_REL ? "REL (Relocatable file)" :
+			ehdr.e_type == ET_EXEC ? "EXEC (Executable file)" :
 			ehdr.e_type == ET_CORE ? "CORE (Core file)" : "Unknown");
 	printf("  Entry point address:    %lx\n", (ehdr.e_entry));
 }

@@ -43,7 +43,7 @@ void print_elf_header(void)
 	Elf64_Ehdr ehdr;
 
 	printf("ELF Header:\n");
-	printf("  Magic: ");
+	printf("  Magic:   ");
 	for (i = 0; i < EI_NIDENT; i++)
 		if (i == EI_NIDENT - 1)
 			printf("%02x", ehdr.e_ident[i]);
@@ -51,15 +51,19 @@ void print_elf_header(void)
 			printf("%02x ", ehdr.e_ident[i]);
 	printf("\n");
 
-	printf("  Class:     %s\n", (ehdr.e_ident[EI_CLASS] == ELFCLASS64) ? "ELF64" :
+	printf("  Class:                             %s\n",
+			(ehdr.e_ident[EI_CLASS] == ELFCLASS64) ? "ELF64" :
 			(ehdr.e_ident[EI_CLASS] == ELFCLASS32) ? "ELF32" : "unknown");
-	printf("  Data:       %s\n", (ehdr.e_ident[EI_DATA] == ELFDATA2LSB) ?
+	printf("  Data:                              %s\n",
+			(ehdr.e_ident[EI_DATA] == ELFDATA2LSB) ?
 			"2's complement, little endian" :
 			(ehdr.e_ident[EI_DATA] == ELFDATA2MSB) ?
 			"2's complement, big endian" : "unknown");
-	printf("  Version:    %s\n", ehdr.e_ident[EI_VERSION] == EV_CURRENT ?
+	printf("  Version:                           %s\n",
+			ehdr.e_ident[EI_VERSION] == EV_CURRENT ?
 			"1 (current)" : "0 (invalid)");
-	printf("  OS/ABI:     %s\n", (ehdr.e_ident[EI_OSABI] == ELFOSABI_SYSV) ?
+	printf("  OS/ABI:                            %s\n",
+			(ehdr.e_ident[EI_OSABI] == ELFOSABI_SYSV) ?
 			"UNIX - System V" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_HPUX) ? "HP-UX" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_NETBSD) ? "UNIX - NetBSD" :
@@ -71,13 +75,13 @@ void print_elf_header(void)
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_TRU64) ? "Tru64" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_MODESTO) ? "Novell Modesto" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_OPENBSD) ? "OpenBSD" : "unknown");
-	printf("  ABI Version:%d\n", ehdr.e_ident[EI_ABIVERSION]);
-	printf("  Type:       %s\n", ehdr.e_type == ET_DYN ?
+	printf("  ABI Version:                       %d\n", ehdr.e_ident[EI_ABIVERSION]);
+	printf("  Type:                              %s\n", ehdr.e_type == ET_DYN ?
 			"DYN (Shared object file)" :
 			ehdr.e_type == ET_REL ? "REL (Relocatable file)" :
 			ehdr.e_type == ET_EXEC ? "EXEC (Executable file)" :
 			ehdr.e_type == ET_CORE ? "CORE (Core file)" : "Unknown");
-	printf("  Entry point address:    %p\n", (void *)(ehdr.e_entry & 0xFFFFFFFF));
+	printf("  Entry point address:               %p\n", (void *)(ehdr.e_entry));
 }
 
 /**

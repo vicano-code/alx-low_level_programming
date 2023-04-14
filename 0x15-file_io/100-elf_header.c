@@ -60,12 +60,13 @@ void print_elf_header(void)
 			"2's complement, little endian" :
 			(ehdr.e_ident[EI_DATA] == ELFDATA2MSB) ?
 			"2's complement, big endian" : "unknown");
-	printf("  Version:                           %s\n",
-			ehdr.e_ident[EI_VERSION] == EV_CURRENT ?
-			"1 (current)" : "0 (invalid)");
+	if (ehdr.e_ident[EI_VERSION] == EV_CURRENT)
+		printf("  Version:                           %d %s\n",
+			ehdr.e_version, "(current)");
+	else
+		printf("  Version:                           %d %s\n", 0, "(invalid)");
 	printf("  OS/ABI:                            %s\n",
-			(ehdr.e_ident[EI_OSABI] == ELFOSABI_SYSV) ?
-			"UNIX - System V" :
+			(ehdr.e_ident[EI_OSABI] == ELFOSABI_SYSV) ? "UNIX - System V" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_HPUX) ? "HP-UX" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_NETBSD) ? "UNIX - NetBSD" :
 			(ehdr.e_ident[EI_OSABI] == ELFOSABI_LINUX) ? "Linux" :

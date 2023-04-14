@@ -83,7 +83,7 @@ void print_elf_header(void)
 			ehdr.e_type == ET_REL ? "REL (Relocatable file)" :
 			ehdr.e_type == ET_EXEC ? "EXEC (Executable file)" :
 			ehdr.e_type == ET_CORE ? "CORE (Core file)" : "Unknown");
-	printf("  Entry point address:               %p\n", (void *)(ehdr.e_entry & 0xFFFF));
+	printf("  Entry point address:               %p\n", (void *)(ehdr.e_entry));
 }
 
 /**

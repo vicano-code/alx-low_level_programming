@@ -1,6 +1,31 @@
 #include "main.h"
 
 /**
+ * close_files - function to close read and write files
+ * @fd_read: read file descriptor
+ * @fd_write: write file descriptor
+ * Return: nothing
+ */
+void close_files(int fd_read, int fd_write)
+{
+	if (close(fd_read) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_read);
+		exit(100);
+	}
+	else
+		close(fd_read);
+
+	if (close(fd_write) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_write);
+		exit(100);
+	}
+	else
+		close(fd_write);
+}
+
+/**
  * copy_file -  copies the content of a file to another file
  * @file_from: source file
  * @file_to: destination file
@@ -39,21 +64,7 @@ void copy_file(const char *file_from, const char *file_to)
 			exit(99);
 		}
 	}
-	if (close(fd_read) == -1)
-	{
-		dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read);
-		exit(100);
-	}
-	else
-		close(fd_read);
-
-	if (close(fd_write) == -1)
-	{
-		dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_write);
-		exit(100);
-	}
-	else
-		close(fd_write);
+	close_files(fd_read, fd_write);
 }
 
 /**

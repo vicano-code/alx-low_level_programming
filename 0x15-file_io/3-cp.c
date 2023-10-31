@@ -27,11 +27,6 @@ void copy_file(const char *file_from, const char *file_to)
 	}
 	while ((bytes_read = read(fd_read, buffer, BUFFER_SIZE)) > 0)
 	{
-		if (bytes_read == -1)
-		{
-			dprintf(fd_stderr, "Error: Can't read from file %s\n", file_from);
-			exit(98);
-		}
 		bytes_written = write(fd_write, buffer, bytes_read);
 		if (bytes_written == -1)
 		{

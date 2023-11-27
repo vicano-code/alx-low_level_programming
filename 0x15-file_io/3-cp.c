@@ -15,12 +15,13 @@ void print_error(const char *file, int n)
 		dprintf(fd_stderr, "Error: Can't read from file %s\n", file);
 		exit(98);
 	}
-	if (n == 1)
+	else
 	{
 		dprintf(fd_stderr, "Error: Can't write to file %s\n", file);
 		exit(99);
 	}
 }
+
 /**
  * copy_file -  copies the content of a file to another file
  * @file_from: source file

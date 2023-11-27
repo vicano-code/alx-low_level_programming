@@ -3,16 +3,19 @@
 /**
  * print_error - print error to std output
  * @file: source or destination file
+ * @n: number for source or destination identification
  * Return: nothing
  */
-void print_error(const char *file)
+void print_error(const char *file, int n)
 {
-	if (file == file_from)
+	int fd_stderr = STDERR_FILENO;
+
+	if (n == 0)
 	{
 		dprintf(fd_stderr, "Error: Can't read from file %s\n", file);
 		exit(98);
 	}
-	if (file == file_to)
+	if (n == 1)
 	{
 		dprintf(fd_stderr, "Error: Can't write to file %s\n", file);
 		exit(99);
@@ -22,7 +25,7 @@ void print_error(const char *file)
  * copy_file -  copies the content of a file to another file
  * @file_from: source file
  * @file_to: destination file
- * Return: 1-successful
+ * Return: nothing
  */
 
 void copy_file(const char *file_from, const char *file_to)
@@ -33,17 +36,17 @@ void copy_file(const char *file_from, const char *file_to)
 
 	fd_read = open(file_from, O_RDONLY);
 	if (fd_read == -1)
-		print_error(file_from);
+		print_error(file_from, 0);
 	fd_write = open(file_to, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	if (fd_write == -1)
-		print_error(file_to);
+		print_error(file_to, 1);
 	while ((bytes_read = read(fd_read, buffer, BUFFER_SIZE)) > 0)
 	{
 		if (bytes_read == -1)
-			print_error(file_from);
+			print_error(file_from, 0);
 		bytes_written = write(fd_write, buffer, bytes_read);
 		if (bytes_written == -1)
-			print_error(file_to);
+			print_error(file_to, 1);
 	}
 	if (close(fd_read) == -1)
 	{

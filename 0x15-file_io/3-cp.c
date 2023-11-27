@@ -1,77 +1,57 @@
 #include "main.h"
 
 /**
- * read_error - print read error to std output
- * @file: source or destination file
- * Return: nothing
- */
-void read_error(const char *file)
-{
-	int fd_stderr = STDERR_FILENO;
-
-	dprintf(fd_stderr, "Error: Can't read from file %s\n", file);
-	exit(98);
-}
-
-/**
- * write_error - print write error to std output
- * @file: source or destination file
- * Return: nothing
- */
-void write_error(const char *file)
-{
-	int fd_stderr = STDERR_FILENO;
-
-	dprintf(fd_stderr, "Error: Can't write to file %s\n", file);
-	exit(99);
-}
-
-/**
- * close_error - print close error to std output
- * @fd_val: file descriptor value
- * Return: nothing
- */
-void close_error(int fd_val)
-{
-	int fd_stderr = STDERR_FILENO;
-
-	dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_val);
-	exit(100);
-}
-
-/**
  * copy_file -  copies the content of a file to another file
  * @file_from: source file
  * @file_to: destination file
- * Return: nothing
+ * Return: 1-successful
  */
+
 void copy_file(const char *file_from, const char *file_to)
 {
-	int fd_read, fd_write;
+	int fd_read, fd_write, fd_stderr = STDERR_FILENO;
 	char buffer[BUFFER_SIZE];
 	ssize_t bytes_read, bytes_written;
 
 	fd_read = open(file_from, O_RDONLY);
 	if (fd_read == -1)
-		read_error(file_from);
+	{
+		dprintf(fd_stderr, "Error: Can't read from file %s\n", file_from);
+		exit(98);
+	}
 	fd_write = open(file_to, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	if (fd_write == -1)
-		write_error(file_to);
+	{
+		dprintf(fd_stderr, "Error: Can't write to %s\n", file_to);
+		exit(99);
+	}
 	while ((bytes_read = read(fd_read, buffer, BUFFER_SIZE)) > 0)
 	{
 		if (bytes_read == -1)
-			read_error(file_from);
+		{
+			dprintf(fd_stderr, "Error: Can't read from file %s\n", file_from);
+			exit(98);
+		}
 		bytes_written = write(fd_write, buffer, bytes_read);
 		if (bytes_written == -1)
-			write_error(file_to);
+		{
+			dprintf(fd_stderr, "Error: Can't write to %s\n", file_to);
+			exit(99);
+		}
 	}
 	if (close(fd_read) == -1)
-		close_error(fd_read);
+	{
+		dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_read);
+		exit(100);
+	}
 	else
 		close(fd_read);
 
 	if (close(fd_write) == -1)
-		close_error(fd_write);
+	{
+		dprintf(fd_stderr, "Error: Can't close fd %d\n", fd_write);
+		exit(100);
+	}
 	else
 		close(fd_write);
 }

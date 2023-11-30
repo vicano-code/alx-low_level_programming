@@ -1,4 +1,5 @@
 **----------0x15-FILE INPUT and OUTPUT PROJECT TASK-----------**
+
 **Practical Applications of File I/O in Daily Life**
 
 File Input/Output (I/O) is a fundamental concept in computer science, playing a crucial role in daily life applications - *did you know any of the below?*

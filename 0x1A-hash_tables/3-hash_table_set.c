@@ -22,11 +22,22 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	/* give the index of the key */
 	idx = key_index((const unsigned char *)key, ht->size);
 
-	new_node = malloc(sizeof(hash_node_t));
-	if (new_node == NULL)
-		return 0;
 	key_dup = strdup(key);/*key duplicate*/
 	value_dup = strdup(value); /*value duplicate*/
+	/* check and update value of key if it exists */
+	while (ht->array[idx] != NULL)
+	{
+		if (strcmp(ht->array[idx]->key, key_dup) == 0)
+		{
+			ht->array[idx]->value = (char *)value;
+			return (1);
+		}
+		ht->array[idx] = ht->array[idx]->next;
+	}
+
+	new_node = malloc(sizeof(hash_node_t));
+	if (new_node == NULL)
+		return (0);
 	new_node->key = key_dup;
 	new_node->value = value_dup;
 	new_node->next = NULL;

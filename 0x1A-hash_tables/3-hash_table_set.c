@@ -13,7 +13,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	unsigned long int idx;
 	char *key_dup;
 	char *value_dup;
-	hash_node_t *new_node;
+	hash_node_t *new_node, *current;
 
 	if (ht == NULL || (ht->array) == NULL || value ==  NULL)
 		return (0);
@@ -33,15 +33,16 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	if (ht->array[idx] == NULL)
 		ht->array[idx] = new_node;
 	else
-	{ /* check and update value of key if it exists */
-		while (ht->array[idx] != NULL)
+	{ /* check and update value of key if it exists or address collision*/
+		current = ht->array[idx];
+		while (current != NULL)
 		{
-			if (strcmp(ht->array[idx]->key, key_dup) == 0)
+			if (strcmp(current->key, key_dup) == 0)
 			{
-				ht->array[idx]->value = (char *)value;
+				current->value = (char *)value;
 				return (1);
 			}
-			ht->array[idx] = ht->array[idx]->next;
+			current = current->next;
 		}
 		/* collision: add new node at begining of list*/
 		new_node->next = ht->array[idx];

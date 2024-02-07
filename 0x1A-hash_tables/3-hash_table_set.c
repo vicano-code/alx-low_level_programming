@@ -11,32 +11,32 @@
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long int idx;
-	const char *value_dup;
-	hash_node_t *node;
+	char *key_dup;
+	char *value_dup;
+	hash_node_t *new_node;
 
 	if (ht == NULL || (ht->array) == NULL || value ==  NULL)
 		return (0);
 	if (key == NULL || strlen(key) == 0)
 		return (0);
-	value_dup = strdup(value);
 	/* give the index of the key */
-	idx = key_index(key, size);
-	
-	node = malloc(sizeof(hash_node_t));
-	if (node == NULL)
+	idx = key_index((const unsigned char *)key, ht->size);
+
+	new_node = malloc(sizeof(hash_node_t));
+	if (new_node == NULL)
 		return 0;
-	value_dup = strdup(value);
-	key_dup = strdup(key);
-	node->key = key_dup;
-	node->value = value_dup;
-	node->next = NULL;
-	while (idx < ht->size)
-	{	
-		if (ht->array[idx] == NULL)
-			ht->array[idx] = node;
-		else 
-			add_to_front(ht, node, idx);
-		idx++;
+	key_dup = strdup(key);/*key duplicate*/
+	value_dup = strdup(value); /*value duplicate*/
+	new_node->key = key_dup;
+	new_node->value = value_dup;
+	new_node->next = NULL;
+	if (ht->array[idx] == NULL)
+		ht->array[idx] = new_node;
+	else
+	/* collision: add new node at begining of list*/
+	{
+		new_node->next = ht->array[idx];
+		ht->array[idx] = new_node;
 	}
 	return (1);
 }

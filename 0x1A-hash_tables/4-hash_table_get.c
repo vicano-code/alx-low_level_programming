@@ -13,6 +13,8 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 	if (ht == NULL || key == NULL)
 		return (NULL);
 
-	idx = key_index(key, ht->size);
+	idx = key_index((const unsigned char *)key, ht->size);
+	if (ht->array[idx] == NULL)
+		return (NULL);
 	return (ht->array[idx]->value);
 }

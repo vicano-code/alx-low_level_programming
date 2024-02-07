@@ -24,17 +24,6 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 
 	key_dup = strdup(key);/*key duplicate*/
 	value_dup = strdup(value); /*value duplicate*/
-	/* check and update value of key if it exists */
-	while (ht->array[idx] != NULL)
-	{
-		if (strcmp(ht->array[idx]->key, key_dup) == 0)
-		{
-			ht->array[idx]->value = (char *)value;
-			return (1);
-		}
-		ht->array[idx] = ht->array[idx]->next;
-	}
-
 	new_node = malloc(sizeof(hash_node_t));
 	if (new_node == NULL)
 		return (0);
@@ -44,8 +33,17 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	if (ht->array[idx] == NULL)
 		ht->array[idx] = new_node;
 	else
-	/* collision: add new node at begining of list*/
-	{
+	{ /* check and update value of key if it exists */
+		while (ht->array[idx] != NULL)
+		{
+			if (strcmp(ht->array[idx]->key, key_dup) == 0)
+			{
+				ht->array[idx]->value = (char *)value;
+				return (1);
+			}
+			ht->array[idx] = ht->array[idx]->next;
+		}
+		/* collision: add new node at begining of list*/
 		new_node->next = ht->array[idx];
 		ht->array[idx] = new_node;
 	}

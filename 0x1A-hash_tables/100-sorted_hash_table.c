@@ -129,7 +129,7 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long int idx;
 	char *value_dup;
-	shash_node_t *node;
+	shash_node_t *node = NULL;
 
 	if (ht == NULL || (ht->array) == NULL || value ==  NULL)
 		return (0);
@@ -138,6 +138,7 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 	/* give the index of the key */
 	idx = key_index((const unsigned char *)key, ht->size);
 	node = (ht->array)[idx];
+	/*check if node exists and update value*/
 	while (node && (strcmp(key, node->key) != 0))
 		node = node->next;
 	if (node != NULL)
@@ -148,6 +149,7 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 		if (node->value)
 			free(node->value);
 		node->value = value_dup;
+
 		return (1);
 	}
 	return (create_and_add_node(ht, key, value, idx));
@@ -157,7 +159,7 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
  * shash_table_get - given key, retrieve value
  * @ht: hash table
  * @key: key
- * Return: value; or NULL if not found
+ * Return: value; or NULL if not 0found
  */
 char *shash_table_get(const shash_table_t *ht, const char *key)
 {

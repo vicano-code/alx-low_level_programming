@@ -14,6 +14,7 @@ The island doesn’t have “lakes” (water inside that isn’t connected to th
 around the island).
 """
 
+
 def island_perimeter(grid):
     """
     returns the perimeter of the island described in grid
@@ -27,7 +28,7 @@ def island_perimeter(grid):
                 perimeter += 4
                 if (j + 1) < grid_size_x and grid[i][j+1] == 1:
                     perimeter -= 1
-                if j != 0 and grid [i][j-1] == 1:
+                if j != 0 and grid[i][j-1] == 1:
                     perimeter -= 1
                 if (i + 1) < grid_size_y and grid[i+1][j] == 1:
                     perimeter -= 1

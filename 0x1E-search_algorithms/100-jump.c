@@ -26,6 +26,9 @@ int jump_search(int *array, size_t size, int value)
 	size_t step = sqrt(size);
 	size_t prev = 0;
 
+	if (!array || size == 0)
+		return (-1);
+
 	if (array[step] > value)
 		printf("Value checked array[%lu] = [%d]\n", prev, array[prev]);
 	/* finding the block where value may be located */
